@@ -11,4 +11,7 @@ pipelines:
                   HEROKU_API_KEY: '3f0e1ff1-9da9-4e44-940e-12f07361c7c7'
                   HEROKU_APP_NAME: 'flaskbiobt'
                   ACTION: update
+                  CONFIG_VARS: >
+                  {
+                  }
             - echo "Your build and test goes here..."
