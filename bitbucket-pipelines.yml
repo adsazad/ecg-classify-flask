@@ -1,0 +1,14 @@
+image: atlassian/default-image:3
+pipelines:
+  default:
+    - parallel:
+      - step:
+          name: 'Build and Test'
+          deployment: production
+          script:
+            - pipe: atlassian/heroku-deploy:2.4.0
+              variables:
+                  HEROKU_API_KEY: '3f0e1ff1-9da9-4e44-940e-12f07361c7c7'
+                  HEROKU_APP_NAME: 'flaskbiobt'
+                  ZIP_FILE: 'your-app-sources.tar.gz'
+            - echo "Your build and test goes here..."
