@@ -5,7 +5,6 @@ pipelines:
       - step:
           name: Build
           script:
-            - cd sample-python-app
             - git archive --format=tar.gz main -o sample-app.tar.gz
           artifacts:
             - sample-app.tar.gz  
