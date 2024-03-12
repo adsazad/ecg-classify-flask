@@ -19,6 +19,7 @@ def predict_api():
      # check authentication
     user = checkAuth(request)
     if not (user):
+      
       return jsonify({"error": "Invalid auth token"})
      
 
