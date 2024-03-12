@@ -12,8 +12,8 @@ pipelines:
                   HEROKU_APP_NAME: 'flaskbiobt'
                   ACTION: 'update'
                   CONFIG_VARS:  >
-        {
-           "test1": $TEST1,
-           "test2": "test2"
-        }
+                    {
+                       "test1": $TEST1,
+                       "test2": "test2"
+                    }
             - echo "Your build and test goes here..."
