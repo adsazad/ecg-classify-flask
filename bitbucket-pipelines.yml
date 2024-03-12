@@ -5,7 +5,8 @@ pipelines:
       - step:
           name: Build
           script:
-            - git archive --format=tar.gz master -o apzip/myapp.tar.gz
+            - cd apzip
+            - git archive --format=tar.gz master -o myapp.tar.gz
             - ls
       - step:
           name: 'Build and Test'
