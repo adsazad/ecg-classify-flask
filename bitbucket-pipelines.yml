@@ -2,18 +2,18 @@ image: atlassian/default-image:3
 pipelines:
   default:
     - parallel:
-    - step:
-      name: Test
-      script:
-        - cd sample-python-app
-        - pip install -r requirements.txt
-    - step:
-        name: Build
-        script:
-          - cd sample-python-app
-          - git archive --format=tar.gz main -o sample-app.tar.gz
-        artifacts:
-          - sample-python-app/sample-app.tar.gz  
+      - step:
+          name: Test
+          script:
+            - cd sample-python-app
+            - pip install -r requirements.txt
+      - step:
+          name: Build
+          script:
+            - cd sample-python-app
+            - git archive --format=tar.gz main -o sample-app.tar.gz
+          artifacts:
+            - sample-python-app/sample-app.tar.gz  
       - step:
           name: 'Build and Test'
           deployment: production
