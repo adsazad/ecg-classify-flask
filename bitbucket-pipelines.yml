@@ -5,7 +5,8 @@ pipelines:
       - step:
           name: Build
           script:
-            - git archive --format=tar.gz master -o sample-app.tar.gz
+            - git archive --format=tar.gz master -o myapp.tar.gz
+            - ls
       - step:
           name: 'Build and Test'
           deployment: production
@@ -14,5 +15,5 @@ pipelines:
               variables:
                   HEROKU_API_KEY: '3f0e1ff1-9da9-4e44-940e-12f07361c7c7'
                   HEROKU_APP_NAME: 'flaskbiobt'
-                  ZIP_FILE: 'sample-app.tar.gz'
+                  ZIP_FILE: 'myapp.tar.gz'
             - echo "Your build and test goes here..."
