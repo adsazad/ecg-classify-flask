@@ -5,7 +5,7 @@ pipelines:
       - step:
           name: Build
           script:
-            - git archive --format=tar.gz main -o sample-app.tar.gz
+            - git archive --format=tar.gz master -o sample-app.tar.gz
       - step:
           name: 'Build and Test'
           deployment: production
