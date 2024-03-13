@@ -1,6 +1,22 @@
 from flask import Flask,jsonify,request 
 from auth.checkauth import checkAuth
 import os
+import json
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+import pickle
+import scipy.io
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+from keras.layers import Dropout
+from keras.layers import Flatten
+from keras.layers import Conv1D
+from keras.layers import MaxPooling1D
+from keras.layers import BatchNormalization
+from keras.layers import Activation
+from keras.layers import GlobalAveragePooling1D
+
 
 app = Flask(__name__)
 app.debug = True
@@ -28,7 +44,18 @@ def predict_api():
     ecg = request.form.get('ecg')
     if not ecg:
       return jsonify({"error": "Missing 'ecg' parameter"})
-    return jsonify({"ecg": ecg})
+    # jsondecode ecg
+    ecg = json.loads(ecg)
+    numpy_array = np.array([float(value.strip()) for value in ecg])
+    scaler = pickle.load(open('scaler.sav', 'rb'))
+    numpy_array = scaler.transform([numpy_array])
+    ecg = np.reshape(ecg, (ecg.shape[0], 1, ecg.shape[1]))
+    model = pickle.load(open('model.m5', 'rb'))
+    prediction = model.predict(ecg)
+    prediction = np.argmax(prediction, axis=1)
+    label_mapping = {0:'A', 1:"N", 2:"O", 3:"~"}
+    prediction = label_mapping[prediction[0]]
+    return jsonify({"ecg": prediction})
     return jsonify({"message": "Hello, World!"})
 
 if __name__ == "__main__":
