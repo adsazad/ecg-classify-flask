@@ -19,7 +19,7 @@ def predict_api():
      # check authentication
     
     user = checkAuth(request)
-    if not (user):
+    if user != True:
       return jsonify({"error": "Invalid auth token"})
     ecg = request.args.get('ecg')
     if not ecg:
