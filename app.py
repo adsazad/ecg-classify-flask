@@ -1,5 +1,7 @@
 from flask import Flask,jsonify,request 
 from auth.checkauth import checkAuth
+import os
+
 app = Flask(__name__)
 app.debug = True
 
@@ -13,6 +15,7 @@ def not_found_error(error):
 # def not_found_route():
 #     # Simulate a situation where the route does not exist
 #     return 'This route does not exist!', 404
+API_KEY = os.getenv('API_KEY')
 
 @app.route("/classify/ecg", methods=['POST'])
 def predict_api():
@@ -20,7 +23,7 @@ def predict_api():
     
     user = checkAuth(request)
     if user != True:
-      return jsonify({"error": "Invalid auth token"})
+      return jsonify({"error": "Invalid auth token","token":API_KEY})
     ecg = request.args.get('ecg')
     if not ecg:
       return jsonify({"error": "Missing 'ecg' parameter"})
