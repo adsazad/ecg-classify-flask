@@ -17,6 +17,7 @@ def not_found_error(error):
 @app.route("/classify/ecg",method=['POST'])
 def predict_api():
      # check authentication
+    
     user = checkAuth(request)
     if not (user):
       return jsonify({"error": "Invalid auth token"})
