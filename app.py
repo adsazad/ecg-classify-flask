@@ -25,7 +25,7 @@ def predict_api():
       return jsonify({"error": "Invalid auth token"})
     
     print(request.json)
-    ecg = request.args.get('ecg')
+    ecg = request.form.get('ecg')
     if not ecg:
       return jsonify({"error": "Missing 'ecg' parameter"})
     return jsonify({"ecg": ecg})
