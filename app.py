@@ -14,15 +14,16 @@ def not_found_error(error):
 #     # Simulate a situation where the route does not exist
 #     return 'This route does not exist!', 404
 
-@app.route("/rr/model")
+@app.route("/classify/ecg")
 def predict_api():
      # check authentication
     user = checkAuth(request)
     if not (user):
-      
       return jsonify({"error": "Invalid auth token"})
-     
-
+    ecg = request.args.get('ecg')
+    if not ecg:
+      return jsonify({"error": "Missing 'ecg' parameter"})
+    return jsonify({"ecg": ecg})
     return jsonify({"message": "Hello, World!"})
 
 if __name__ == "__main__":
