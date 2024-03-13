@@ -14,7 +14,7 @@ def not_found_error(error):
 #     # Simulate a situation where the route does not exist
 #     return 'This route does not exist!', 404
 
-@app.route("/classify/ecg")
+@app.route("/classify/ecg",method=['POST'])
 def predict_api():
      # check authentication
     user = checkAuth(request)
