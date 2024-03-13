@@ -5,7 +5,6 @@ import json
 import numpy as np
 from sklearn.preprocessing import StandardScaler
 import pickle
-import scipy.io
 from keras.models import Sequential
 from keras.layers import Dense
 from keras.layers import LSTM
