@@ -1,12 +1,7 @@
 tensorflow==2.16.1
-click==8.1.7
 Flask==3.0.2
 gunicorn==21.2.0
-h5py==3.10.0
-json5==0.9.14
 keras==3.0.0
 load==2020.12.3
 pandas==1.2.4
-regex==2023.12.25
-safetensors==0.4.1
 scikit-learn==1.3.0
