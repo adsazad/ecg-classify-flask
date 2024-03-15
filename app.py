@@ -51,7 +51,7 @@ def predict_api():
     # convert to np array
     numpy_array = np.array(numpy_array)
     scaler = pickle.load(open('scaler.sav', 'rb'))
-    numpy_array = scaler.transform([numpy_array])
+    ecg = scaler.transform([numpy_array])
     ecg = np.reshape(ecg, (ecg.shape[0], 1, ecg.shape[1]))  # Reshape the numpy array
     model = pickle.load(open('model.m5', 'rb'))
     prediction = model.predict(ecg)
