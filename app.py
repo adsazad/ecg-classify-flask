@@ -46,6 +46,8 @@ def predict_api():
     # jsondecode ecg
     ecg = json.loads(ecg)
     numpy_array = np.array([float(value) for value in ecg])
+    # limit numpy array to 9000 entries
+    numpy_array = numpy_array[:9000]
     scaler = pickle.load(open('scaler.sav', 'rb'))
     numpy_array = scaler.transform([numpy_array])
     ecg = np.reshape(ecg, (ecg.shape[0], 1, ecg.shape[1]))
