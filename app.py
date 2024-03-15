@@ -45,7 +45,7 @@ def predict_api():
       return jsonify({"error": "Missing 'ecg' parameter"})
     # jsondecode ecg
     ecg = json.loads(ecg)
-    numpy_array = np.array([float(value.strip()) for value in ecg])
+    numpy_array = np.array([float(value) for value in ecg])
     scaler = pickle.load(open('scaler.sav', 'rb'))
     numpy_array = scaler.transform([numpy_array])
     ecg = np.reshape(ecg, (ecg.shape[0], 1, ecg.shape[1]))
