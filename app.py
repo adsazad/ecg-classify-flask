@@ -50,7 +50,8 @@ def predict_api():
     numpy_array = numpy_array[:9000]
     scaler = pickle.load(open('scaler.sav', 'rb'))
     numpy_array = scaler.transform([numpy_array])
-    ecg = np.reshape(ecg, (ecg.shape[0], 1, ecg.shape[1]))
+    ecg = np.array(ecg)  # Convert 'ecg' list to numpy array
+    ecg = np.reshape(ecg, (ecg.shape[0], 1, ecg.shape[1]))  # Reshape the numpy array
     model = pickle.load(open('model.m5', 'rb'))
     prediction = model.predict(ecg)
     prediction = np.argmax(prediction, axis=1)
