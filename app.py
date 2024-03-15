@@ -53,7 +53,7 @@ def predict_api():
     scaler = pickle.load(open('scaler.sav', 'rb'))
     ecg = scaler.transform([numpy_array])
     ecg = np.reshape(ecg, (ecg.shape[0], 1, ecg.shape[1]))  # Reshape the numpy array
-    model = pickle.load(open('model.m5', 'rb'))
+    model = pickle.load(open('model.h5', 'rb'))
     prediction = model.predict(ecg)
     prediction = np.argmax(prediction, axis=1)
     label_mapping = {0:'A', 1:"N", 2:"O", 3:"~"}
