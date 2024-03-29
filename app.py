@@ -15,7 +15,7 @@ from keras.layers import MaxPooling1D
 from keras.layers import BatchNormalization
 from keras.layers import Activation
 from keras.layers import GlobalAveragePooling1D
-
+import pandas as pd
 import keras
 
 app = Flask(__name__)
@@ -31,6 +31,44 @@ def not_found_error(error):
 # def not_found_route():
 #     # Simulate a situation where the route does not exist
 #     return 'This route does not exist!', 404
+
+@app.route("/rrglu", methods=['POST'])
+def rrglu():
+    user = checkAuth(request)
+    if user != True:
+      return jsonify({"error": "Invalid auth token"})
+    # make empty datatable
+    age = request.json["age"]
+    gender = request.json["gender"]
+    ht = request.json["ht"]
+    wt = request.json["wt"]
+    rr = request.json["rr"]
+    # explode rr with comma
+    rr = rr.split(',')
+
+    d = {'age': [age], 'gender': [gender], 'ht': [ht], 'wt': [wt]}
+    for i in range(300):
+      k = f'rr{i}'
+      d[k] = [int(rr[i])]
+    data = pd.DataFrame(data=d)
+    # print(data)
+    print(data.dtypes)
+    # # data = pd.DataFrame()
+    # # # add fields age, gender, ht,wt, and rr from rr0 to rr299
+  
+    model = keras.models.load_model('rrmodel.h5')
+    # # # # predict
+    # # print(data)
+    # # xpred = np.asarray(data).astype(np.float32)
+    # # print(xpred)
+
+    prediction = model.predict(data)
+    print(prediction)
+    return jsonify({"glu": str(prediction[0])})
+
+
+    return jsonify({"message": "Hello, World!"})
+    
 
 @app.route("/classify/ecg", methods=['POST'])
 def predict_api():
@@ -63,7 +101,7 @@ def predict_api():
     return jsonify({"message": "Hello, World!"})
 
 if __name__ == "__main__":
-  app.run(host='0.0.0.0',port=5003)
+  app.run(host='0.0.0.0',debug=True,port=5003)
 
    
 
